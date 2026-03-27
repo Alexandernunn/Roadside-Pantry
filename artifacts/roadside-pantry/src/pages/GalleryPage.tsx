@@ -5,9 +5,9 @@ const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dic
 
 const photos = [
   { src: `${BASE}toast-banner.jpg`, alt: "Roadside Pantry storefront", span: "md:col-span-2 md:row-span-2" },
-  { src: `${BASE}food-1.png`, alt: "BBQ wings with collard greens and mac & cheese", span: "" },
-  { src: `${BASE}food-2.png`, alt: "Fried chicken and fries", span: "" },
-  { src: `${BASE}food-3.png`, alt: "Philly cheesesteak with fries", span: "md:col-span-2" },
+  { src: `${BASE}food-1.webp`, alt: "BBQ wings with collard greens and mac & cheese", span: "" },
+  { src: `${BASE}food-2.webp`, alt: "Fried chicken and fries", span: "" },
+  { src: `${BASE}food-3.webp`, alt: "Philly cheesesteak with fries", span: "md:col-span-2" },
 ];
 
 const videos = [
@@ -23,7 +23,7 @@ export default function GalleryPage() {
       {/* PAGE HERO */}
       <section className="py-24 md:py-32 bg-card text-center relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-35">
-          <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
+          <img src={`${BASE}food-pattern.webp`} alt="" className="w-full h-full object-cover object-center" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-card/85 via-card/80 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
@@ -67,6 +67,7 @@ export default function GalleryPage() {
                   alt={photo.alt}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400">
@@ -111,6 +112,7 @@ export default function GalleryPage() {
                   muted
                   loop
                   playsInline
+                  preload="none"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />

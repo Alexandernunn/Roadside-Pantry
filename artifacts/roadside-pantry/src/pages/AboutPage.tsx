@@ -35,7 +35,7 @@ export default function AboutPage() {
       {/* PAGE HERO */}
       <section className="relative py-28 md:py-40 bg-card overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-35">
-          <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
+          <img src={`${BASE}food-pattern.webp`} alt="" className="w-full h-full object-cover object-center" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-card/85 via-card/80 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">

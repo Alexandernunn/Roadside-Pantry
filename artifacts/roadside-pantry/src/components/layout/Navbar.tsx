@@ -44,7 +44,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="shrink-0 group">
             <img
-              src={`${import.meta.env.BASE_URL}logo-full.png`}
+              src={`${import.meta.env.BASE_URL}logo-full.webp`}
               alt="Roadside Pantry"
               className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full object-cover transition-transform group-hover:scale-105"
             />

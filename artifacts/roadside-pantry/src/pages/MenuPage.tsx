@@ -69,7 +69,7 @@ export default function MenuPage() {
       {/* PAGE HERO */}
       <section className="relative py-24 md:py-32 bg-card overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-35">
-          <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
+          <img src={`${BASE}food-pattern.webp`} alt="" className="w-full h-full object-cover object-center" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-card/85 via-card/80 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
@@ -116,7 +116,7 @@ export default function MenuPage() {
                 >
                   <div className="h-44 w-full relative overflow-hidden bg-card">
                     {item.image ? (
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
                     ) : (
                       <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
                     )}

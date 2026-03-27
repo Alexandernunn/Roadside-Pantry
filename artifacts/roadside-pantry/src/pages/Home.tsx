@@ -29,10 +29,10 @@ export default function Home() {
       {/* HERO */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={`${BASE}toast-banner.jpg`} alt="" className="w-full h-full object-cover opacity-20" />
+          <img src={`${BASE}toast-banner.jpg`} alt="" className="w-full h-full object-cover opacity-20" fetchPriority="high" />
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
-          <img src={`${BASE}logo-full.png`} alt="" className="w-80 h-80 md:w-96 md:h-96 rounded-full object-cover opacity-10" />
+          <img src={`${BASE}logo-full.webp`} alt="" className="w-80 h-80 md:w-96 md:h-96 rounded-full object-cover opacity-10" fetchPriority="high" />
         </div>
         <div className="absolute inset-0 bg-background/85 z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(91,45,142,0.18),transparent_50%)] z-0" />
@@ -47,7 +47,7 @@ export default function Home() {
           >
             <div className="absolute inset-0 rounded-full glow-secondary animate-pulse" />
             <img
-              src={`${BASE}logo-full.png`}
+              src={`${BASE}logo-full.webp`}
               alt="Roadside Pantry Logo"
               className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover relative z-10 border-4 border-border/30"
             />
@@ -210,6 +210,7 @@ export default function Home() {
                 muted
                 loop
                 playsInline
+                preload="none"
                 className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -254,8 +255,8 @@ export default function Home() {
               </Link>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid grid-cols-2 gap-4">
-              <img src={`${BASE}food-1.png`} alt="BBQ wings plate" className="rounded-3xl w-full h-56 object-cover" />
-              <img src={`${BASE}food-2.png`} alt="Fried chicken plate" className="rounded-3xl w-full h-56 object-cover mt-8" />
+              <img src={`${BASE}food-1.webp`} alt="BBQ wings plate" className="rounded-3xl w-full h-56 object-cover" loading="lazy" decoding="async" />
+              <img src={`${BASE}food-2.webp`} alt="Fried chicken plate" className="rounded-3xl w-full h-56 object-cover mt-8" loading="lazy" decoding="async" />
             </motion.div>
           </div>
         </div>
@@ -280,7 +281,7 @@ export default function Home() {
       {/* CTA */}
       <section className="relative py-32 overflow-hidden bg-secondary">
         <div className="absolute inset-0 z-0">
-          <img src={`${BASE}food-3.png`} alt="" className="w-full h-full object-cover opacity-15" />
+          <img src={`${BASE}food-3.webp`} alt="" className="w-full h-full object-cover opacity-15" loading="lazy" decoding="async" />
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.2),rgba(0,0,0,0.6))]" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">

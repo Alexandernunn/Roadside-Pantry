@@ -19,7 +19,7 @@ export function Footer() {
           {/* Brand & Slogan */}
           <div className="space-y-8 flex flex-col items-center">
             <img
-              src={`${import.meta.env.BASE_URL}logo.png`}
+              src={`${import.meta.env.BASE_URL}logo.webp`}
               alt="Roadside Pantry"
               className="w-48 h-48 md:w-56 md:h-56 rounded-full"
             />
