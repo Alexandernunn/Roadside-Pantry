@@ -1,84 +1,67 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Check } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { menuCategories } from "@/data/menuData";
+import type { MenuItem } from "@/data/menuData";
 
 const BASE = import.meta.env.BASE_URL;
-const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dickerson-pike";
 
-const categories = [
-  {
-    name: "Entrees",
-    tagline: "The main event. Slow-cooked, seasoned heavy, and built to satisfy.",
-    items: [
-      {
-        name: "Smothered Pork Chops",
-        price: "$14.99",
-        description: "Fall-off-the-bone pork chops slow-cooked in a rich, savory onion gravy. Each chop is seared to lock in the flavor, then braised until the meat pulls apart with ease. Served over white rice with the gravy poured on thick.",
-        gradient: "from-amber-700 to-orange-950",
-        badge: "Fan Favorite",
-      },
-      {
-        name: "Fried Catfish",
-        price: "$13.99",
-        description: "Whole catfish fillets hand-dredged in seasoned cornmeal and fried golden in a cast-iron skillet. Nashville-spiced with a crispy crust that holds up against our house hot sauce. Come with or without the heat — we won't judge.",
-        gradient: "from-yellow-600 to-amber-900",
-        badge: "Nashville Style",
-      },
-      {
-        name: "Oxtails",
-        price: "$18.99",
-        description: "Braised low and slow for hours in a rich, herbaceous gravy until the meat melts off the bone like butter. This isn't a quick dish — it's patience in a bowl. Served over rice with the braising liquid reduced to velvet.",
-        gradient: "from-stone-700 to-stone-950",
-        badge: "Most Ordered",
-      },
-    ],
-  },
-  {
-    name: "Sides",
-    tagline: "Don't sleep on the sides. They hit different here.",
-    items: [
-      {
-        name: "Mac & Cheese",
-        price: "$4.99",
-        description: "A five-cheese blend — sharp cheddar, gouda, gruyère, colby jack, and cream cheese — folded into al dente macaroni and baked in a cast iron until the top is golden and bubbly. Creamy all the way through. No powdered mix here.",
-        gradient: "from-yellow-500 to-orange-800",
-        badge: "Classic",
-      },
-      {
-        name: "Candied Yams",
-        price: "$4.99",
-        description: "Fresh sweet potatoes slow-cooked in brown sugar, real butter, cinnamon, nutmeg, and just a touch of vanilla. The kind your grandmother would make for Sunday dinner. Sweet, buttery, and absolutely unapologetic about it.",
-        gradient: "from-orange-600 to-red-900",
-        badge: "Sunday Best",
-      },
-      {
-        name: "Collard Greens",
-        price: "$4.99",
-        description: "Fresh collard greens slow-simmered with smoked turkey, onions, garlic, and house seasonings. Cooked down until they're silky and tender, carrying the smoke and depth of every ingredient. No bitterness — just soul.",
-        gradient: "from-emerald-800 to-green-950",
-        badge: "Southern Classic",
-      },
-      {
-        name: "Cornbread",
-        price: "$2.99",
-        description: "Baked fresh every morning in a seasoned cast iron skillet. Golden brown on the outside, moist and slightly sweet on the inside. Goes with everything on this menu. Honestly, you might order two.",
-        gradient: "from-yellow-400 to-amber-700",
-        badge: "Baked Fresh Daily",
-      },
-    ],
-  },
-  {
-    name: "Drinks",
-    tagline: "Keep it cold, keep it sweet.",
-    items: [
-      {
-        name: "House Lemonade",
-        price: "$3.49",
-        description: "Freshly squeezed lemons, cane sugar, and ice-cold water. Available sweet or unsweet — though we're partial to sweet. Made in-house every morning so it's never from concentrate and always hits right.",
-        gradient: "from-yellow-200 to-yellow-600",
-        badge: "House Made",
-      },
-    ],
-  },
-];
+function AddToCartButton({ item }: { item: MenuItem }) {
+  const { addItem, getQuantity, increment, decrement } = useCart();
+  const qty = getQuantity(item.id);
+  const [justAdded, setJustAdded] = useState(false);
+
+  const handleAdd = () => {
+    addItem(item);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1500);
+  };
+
+  if (qty === 0) {
+    return (
+      <button
+        onClick={handleAdd}
+        className={`mt-5 flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 ${
+          justAdded
+            ? "bg-green-600 text-white"
+            : "bg-primary text-primary-foreground hover:scale-105 glow-primary-hover"
+        }`}
+      >
+        {justAdded ? (
+          <>
+            <Check size={15} /> Added!
+          </>
+        ) : (
+          <>
+            <Plus size={15} /> Add to Order
+          </>
+        )}
+      </button>
+    );
+  }
+
+  return (
+    <div className="mt-5 flex items-center gap-3">
+      <div className="flex items-center gap-1 bg-background border border-border rounded-full px-1 py-1">
+        <button
+          onClick={() => decrement(item.id)}
+          className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors font-bold text-lg"
+        >
+          −
+        </button>
+        <span className="w-7 text-center font-bold text-sm">{qty}</span>
+        <button
+          onClick={() => increment(item.id)}
+          className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+        >
+          <Plus size={14} />
+        </button>
+      </div>
+      <span className="text-primary font-bold text-sm">${(item.price * qty).toFixed(2)}</span>
+    </div>
+  );
+}
 
 export default function MenuPage() {
   return (
@@ -97,23 +80,13 @@ export default function MenuPage() {
             The <span className="text-primary italic">Full Menu</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Everything on this menu is made from scratch, seasoned with intention, and cooked the way it's supposed to be cooked. No substitutions for quality — just the real thing, every time.
+            Everything on this menu is made from scratch, seasoned with intention, and cooked the way it's supposed to be cooked. Add what you want and build your order below.
           </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="mt-10">
-            <a
-              href={TOAST_TAB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-4 rounded-full bg-primary text-primary-foreground font-bold text-base hover:scale-105 glow-primary transition-all duration-300 uppercase tracking-widest"
-            >
-              Order Online Now
-            </a>
-          </motion.div>
         </div>
       </section>
 
       {/* MENU CATEGORIES */}
-      {categories.map((cat, ci) => (
+      {menuCategories.map((cat, ci) => (
         <section key={cat.name} className={`py-20 md:py-28 ${ci % 2 === 0 ? "bg-background" : "bg-card"}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div className="mb-14">
@@ -134,7 +107,7 @@ export default function MenuPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
               {cat.items.map((item, i) => (
                 <motion.div
-                  key={item.name}
+                  key={item.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -147,20 +120,13 @@ export default function MenuPage() {
                       {item.badge}
                     </div>
                     <div className="absolute top-4 right-4 bg-background/85 backdrop-blur-md px-3 py-1.5 rounded-full text-primary font-bold text-sm">
-                      {item.price}
+                      ${item.price.toFixed(2)}
                     </div>
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary transition-colors">{item.name}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed flex-grow">{item.description}</p>
-                    <a
-                      href={TOAST_TAB_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 text-primary text-sm font-semibold hover:underline uppercase tracking-wider"
-                    >
-                      Add to Order →
-                    </a>
+                    <AddToCartButton item={item} />
                   </div>
                 </motion.div>
               ))}
@@ -176,14 +142,6 @@ export default function MenuPage() {
             Hungry yet? <span className="italic text-primary">We thought so.</span>
           </motion.h2>
           <p className="text-white/75 text-lg mb-10">Order online in seconds and pick up fresh at 1107 Dickerson Pike. Ready in 15–20 minutes.</p>
-          <a
-            href={TOAST_TAB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-10 py-5 rounded-full bg-primary text-primary-foreground font-bold text-xl hover:scale-105 glow-primary transition-all duration-300 uppercase tracking-widest"
-          >
-            Order Now
-          </a>
         </div>
       </section>
     </main>

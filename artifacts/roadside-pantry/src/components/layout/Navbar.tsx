@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/context/CartContext";
 
 const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dickerson-pike";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [location] = useLocation();
+  const { totalItems, openCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -38,7 +41,7 @@ export function Navbar() {
       <div className="mx-auto px-6 max-w-7xl">
         <div className="flex items-center justify-between gap-4">
 
-          {/* Logo — always visible, no text label */}
+          {/* Logo */}
           <Link href="/" className="shrink-0 group">
             <img
               src={`${import.meta.env.BASE_URL}logo.png`}
@@ -47,7 +50,7 @@ export function Navbar() {
             />
           </Link>
 
-          {/* Nav links — always visible, no hamburger */}
+          {/* Nav links — always visible */}
           <nav className="flex items-center gap-5">
             {navLinks.map((link) => (
               <Link
@@ -63,6 +66,21 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
+
+            {/* Cart button */}
+            <button
+              onClick={openCart}
+              className="relative w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200"
+              aria-label="Open cart"
+            >
+              <ShoppingBag size={16} />
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center leading-none">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
+            </button>
+
             <a
               href={TOAST_TAB_URL}
               target="_blank"

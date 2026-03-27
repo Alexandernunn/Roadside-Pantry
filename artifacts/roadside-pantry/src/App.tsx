@@ -7,9 +7,12 @@ import MenuPage from "@/pages/MenuPage";
 import AboutPage from "@/pages/AboutPage";
 import GalleryPage from "@/pages/GalleryPage";
 import ReviewsPage from "@/pages/ReviewsPage";
+import CartPage from "@/pages/CartPage";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileOrderButton } from "@/components/layout/MobileOrderButton";
+import { CartDrawer } from "@/components/layout/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 const queryClient = new QueryClient();
 
@@ -17,12 +20,14 @@ function Router() {
   return (
     <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
       <Navbar />
+      <CartDrawer />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/menu" component={MenuPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/gallery" component={GalleryPage} />
         <Route path="/reviews" component={ReviewsPage} />
+        <Route path="/cart" component={CartPage} />
       </Switch>
       <Footer />
       <MobileOrderButton />
@@ -34,7 +39,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Router />
+        <CartProvider>
+          <Router />
+        </CartProvider>
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
