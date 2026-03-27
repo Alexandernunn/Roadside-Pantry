@@ -38,26 +38,26 @@ export function Navbar() {
           : "bg-transparent py-4"
       )}
     >
-      <div className="mx-auto px-6 max-w-7xl">
-        <div className="flex items-center justify-between gap-4">
+      <div className="mx-auto px-4 max-w-7xl">
+        <div className="flex items-center justify-between gap-2">
 
           {/* Logo */}
           <Link href="/" className="shrink-0 group">
             <img
               src={`${import.meta.env.BASE_URL}logo-full.png`}
               alt="Roadside Pantry"
-              className="w-10 h-10 rounded-full object-cover transition-transform group-hover:scale-105"
+              className="w-9 h-9 rounded-full object-cover transition-transform group-hover:scale-105"
             />
           </Link>
 
           {/* Nav links — always visible */}
-          <nav className="flex items-center gap-5">
+          <nav className="flex items-center gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-xs font-semibold transition-colors uppercase tracking-widest whitespace-nowrap",
+                  "text-[10px] font-bold transition-colors uppercase tracking-wider whitespace-nowrap px-1",
                   location === link.href
                     ? "text-primary"
                     : "text-foreground/70 hover:text-primary"
@@ -70,12 +70,12 @@ export function Navbar() {
             {/* Cart button */}
             <button
               onClick={openCart}
-              className="relative w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200"
+              className="relative w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0"
               aria-label="Open cart"
             >
-              <ShoppingBag size={16} />
+              <ShoppingBag size={14} />
               {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center leading-none">
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
                   {totalItems > 99 ? "99+" : totalItems}
                 </span>
               )}
@@ -85,9 +85,9 @@ export function Navbar() {
               href={TOAST_TAB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-semibold text-xs hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap"
+              className="px-4 py-1.5 rounded-full bg-primary text-primary-foreground font-bold text-[10px] hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
             >
-              Order Now
+              Order
             </a>
           </nav>
 
