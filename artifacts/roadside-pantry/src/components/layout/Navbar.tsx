@@ -38,26 +38,26 @@ export function Navbar() {
           : "bg-transparent py-4"
       )}
     >
-      <div className="mx-auto px-2 sm:px-4 max-w-7xl">
-        <div className="flex items-center justify-between gap-1 sm:gap-2 md:gap-2">
+      <div className="mx-auto px-1.5 sm:px-4 max-w-7xl">
+        <div className="flex items-center justify-center sm:justify-between gap-0.5 sm:gap-2 md:gap-2">
 
-          {/* Logo */}
-          <Link href="/" className="shrink-0 group">
+          {/* Logo — hidden on mobile */}
+          <Link href="/" className="shrink-0 group hidden sm:flex">
             <img
               src={`${import.meta.env.BASE_URL}logo-full.webp`}
               alt="Roadside Pantry"
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full object-cover transition-transform group-hover:scale-105"
+              className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full object-cover transition-transform group-hover:scale-105"
             />
           </Link>
 
           {/* Nav links — always visible */}
-          <nav className="flex items-center gap-1 sm:gap-1.5 md:gap-3 lg:gap-4">
+          <nav className="flex items-center gap-0.5 sm:gap-1.5 md:gap-3 lg:gap-4 justify-center sm:justify-start flex-1 sm:flex-none">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-sm sm:text-sm md:text-xs lg:text-sm font-extrabold transition-colors uppercase tracking-wider whitespace-nowrap px-1.5 sm:px-2 md:px-2",
+                  "text-sm sm:text-sm md:text-xs lg:text-sm font-extrabold transition-colors uppercase tracking-wide whitespace-nowrap px-1 sm:px-2 md:px-2",
                   location === link.href
                     ? "text-primary"
                     : "text-foreground/70 hover:text-primary"
@@ -70,7 +70,7 @@ export function Navbar() {
             {/* Cart button */}
             <button
               onClick={openCart}
-              className="relative w-12 h-12 sm:w-12 sm:h-12 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0"
+              className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0 ml-auto sm:ml-0"
               aria-label="Open cart"
             >
               <ShoppingBag size={20} className="sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5" />
@@ -85,7 +85,7 @@ export function Navbar() {
               href={TOAST_TAB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 sm:px-5 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-sm sm:text-sm md:text-xs lg:text-sm hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
+              className="px-3 py-1.5 sm:px-5 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-sm sm:text-sm md:text-xs lg:text-sm hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
             >
               Order
             </a>
