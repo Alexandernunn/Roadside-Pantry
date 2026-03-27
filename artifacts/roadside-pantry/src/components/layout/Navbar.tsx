@@ -51,13 +51,13 @@ export function Navbar() {
           </Link>
 
           {/* Nav links — always visible */}
-          <nav className="flex items-center gap-0.5 sm:gap-1.5 md:gap-3 lg:gap-4 justify-center sm:justify-start flex-1 sm:flex-none">
+          <nav className="flex items-center gap-0 sm:gap-1.5 md:gap-3 lg:gap-4 justify-center sm:justify-start flex-1 sm:flex-none">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-sm sm:text-sm md:text-xs lg:text-sm font-extrabold transition-colors uppercase tracking-wide whitespace-nowrap px-1 sm:px-2 md:px-2",
+                  "text-xs sm:text-sm md:text-xs lg:text-sm font-extrabold transition-colors uppercase tracking-tight whitespace-nowrap px-0.5 sm:px-2 md:px-2",
                   location === link.href
                     ? "text-primary"
                     : "text-foreground/70 hover:text-primary"
@@ -85,7 +85,7 @@ export function Navbar() {
               href={TOAST_TAB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 sm:px-5 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-sm sm:text-sm md:text-xs lg:text-sm hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
+              className="px-2 py-1 sm:px-5 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-xs lg:text-sm hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-tight whitespace-nowrap shrink-0"
             >
               Order
             </a>
