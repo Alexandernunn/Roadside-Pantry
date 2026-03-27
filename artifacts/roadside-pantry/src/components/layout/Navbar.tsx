@@ -46,18 +46,18 @@ export function Navbar() {
             <img
               src={`${import.meta.env.BASE_URL}logo-full.png`}
               alt="Roadside Pantry"
-              className="w-9 h-9 rounded-full object-cover transition-transform group-hover:scale-105"
+              className="w-9 h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover transition-transform group-hover:scale-105"
             />
           </Link>
 
           {/* Nav links — always visible */}
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-2 md:gap-3 lg:gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-[10px] font-bold transition-colors uppercase tracking-wider whitespace-nowrap px-1",
+                  "text-[10px] md:text-xs lg:text-sm font-bold transition-colors uppercase tracking-wider whitespace-nowrap px-1 md:px-2",
                   location === link.href
                     ? "text-primary"
                     : "text-foreground/70 hover:text-primary"
@@ -70,12 +70,12 @@ export function Navbar() {
             {/* Cart button */}
             <button
               onClick={openCart}
-              className="relative w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0"
+              className="relative w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0"
               aria-label="Open cart"
             >
-              <ShoppingBag size={14} />
+              <ShoppingBag size={14} className="md:w-4 md:h-4 lg:w-5 lg:h-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[8px] md:text-[7px] lg:text-[8px] font-bold rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center leading-none">
                   {totalItems > 99 ? "99+" : totalItems}
                 </span>
               )}
@@ -85,7 +85,7 @@ export function Navbar() {
               href={TOAST_TAB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 rounded-full bg-primary text-primary-foreground font-bold text-[10px] hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
+              className="px-4 py-1.5 md:px-5 md:py-2 lg:px-6 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-[10px] md:text-xs lg:text-sm hover:-translate-y-0.5 glow-primary-hover transition-all duration-300 uppercase tracking-wide whitespace-nowrap shrink-0"
             >
               Order
             </a>
