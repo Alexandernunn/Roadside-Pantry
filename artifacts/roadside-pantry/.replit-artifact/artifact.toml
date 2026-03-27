@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Roadside Pantry"
+version = "1.0.0"
+id = "artifacts/roadside-pantry"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24990
+
+[services.development]
+run = "pnpm --filter @workspace/roadside-pantry run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/roadside-pantry", "run", "build" ]
+publicDir = "artifacts/roadside-pantry/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24990"
+BASE_PATH = "/"

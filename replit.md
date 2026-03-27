@@ -91,6 +91,19 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
 
+### `artifacts/roadside-pantry` (`@workspace/roadside-pantry`)
+
+Single-page scrolling restaurant website for Roadside Pantry, a soul food restaurant in Nashville, TN. Built with React + Vite + Tailwind CSS.
+
+- **Brand Colors**: Deep purple (#5B2D8E), gold/yellow (#F5C518), black (#0D0D0D), off-white (#F5F0E8)
+- **Fonts**: Playfair Display (headings), Inter (body) via Google Fonts
+- **Sections**: Hero, About, Menu Highlights, Reviews, Order CTA Banner, Footer
+- **Features**: Sticky navbar with smooth scroll, mobile hamburger menu, floating mobile "Order Now" button, Framer Motion animations, gold glow hover effects on menu cards
+- **External Links**: Toast Tab ordering URL, Instagram
+- **Static site**: No backend needed, includes `netlify.toml` for Netlify deployment
+- **Logo**: `public/logo.png` (background-removed circular logo)
+- **Key Dependencies**: framer-motion, lucide-react, clsx, tailwind-merge
+
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.

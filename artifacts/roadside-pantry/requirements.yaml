@@ -1,0 +1,10 @@
+packages:
+  "framer-motion": "For page reveal animations and smooth scroll interactions"
+  "lucide-react": "For UI icons, star ratings, and social media icons"
+  "clsx": "For merging tailwind classes"
+  "tailwind-merge": "For merging tailwind classes safely"
+
+notes:
+  - This is a static, single-page website without a backend.
+  - Netlify configuration is included.
+  - Uses the provided `logo.png` directly from the public directory.

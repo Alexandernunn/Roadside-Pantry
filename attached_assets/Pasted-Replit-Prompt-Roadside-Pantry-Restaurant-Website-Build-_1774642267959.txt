@@ -1,0 +1,34 @@
+Replit Prompt — Roadside Pantry Restaurant Website
+
+Build a full modern restaurant website for Roadside Pantry, a soul food restaurant in Nashville, TN located at 1107 Dickerson Pike, Nashville, TN 37207. Slogan: "What's In Your Pantry?"
+Tech Stack: HTML, CSS (no frameworks), vanilla JS. Must be optimized for Netlify deployment (static site, no server required). Include a netlify.toml config file.
+Brand Colors: Deep purple (#5B2D8E), gold/yellow (#F5C518), black (#0D0D0D), off-white (#F5F0E8). Use the uploaded circular logo as the favicon and hero brand mark.
+Design Vibe: Urban, upscale, professional — think Slutty Vegan meets Harold's Chicken meets a Nashville hotspot. Bold typography (use Google Fonts — Playfair Display for headings, Inter for body). Full-bleed dark sections, gold accents, subtle food photography placeholder backgrounds with dark overlays.
+Pages/Sections (single-page scroll):
+
+Hero — Full-screen dark background with logo centered, tagline "Nashville's Soul Food Authority", two CTA buttons: Order Now (links to https://order.toasttab.com/online/roadsidepantry-1107-dickerson-pike) and See the Menu
+About — Two-column layout. Left: bold headline "Born from the Block. Built for the Culture." with 2–3 sentences of compelling copy about authentic Nashville soul food, community roots, bold flavors made from scratch daily. Right: decorative accent block with a stat or quote (e.g., "500+ Five-Star Reviews")
+Menu Highlights — Card grid showcasing 8 items with name, short description, and price. Use these items:
+
+Smothered Pork Chops — $14.99 — Slow-cooked, fall-off-the-bone tender, drowning in rich onion gravy
+Fried Catfish — $13.99 — Crispy cornmeal-crusted, Nashville-seasoned, served with hot sauce on the side
+Mac & Cheese — $4.99 — Five-cheese blend, baked golden on top, creamy all the way through
+Candied Yams — $4.99 — Sweet, buttery, spiced just right — just like grandma made
+Oxtails — $18.99 — Braised low and slow in a rich, savory gravy until they melt off the bone
+Collard Greens — $4.99 — Slow-simmered with smoked turkey, bold and soulful
+Cornbread — $2.99 — Golden, slightly sweet, baked fresh daily
+Lemonade — $3.49 — House-made, served sweet or unsweet
+
+
+Reviews — Carousel or grid of 5 fake-but-realistic glowing reviews. Names should feel authentic Nashville/urban. Stars (5/5). Sample copy: "Oxtails had me calling my mama. Best soul food I've had outside her kitchen." — DeShawn M. ⭐⭐⭐⭐⭐
+Order CTA Banner — Full-width dark purple section: "Ready to Eat? Order Online or Pull Up." with Order Now button linking to Toast tab URL above
+Footer — Address (1107 Dickerson Pike, Nashville, TN 37207), hours placeholder (Mon–Sun 11am–9pm), phone placeholder, social icons (Instagram, Facebook, TikTok)
+
+Extra Details:
+
+Smooth scroll nav with sticky header (logo left, links right, Order Now gold pill button)
+Subtle hover animations on menu cards (gold border glow)
+Mobile-first responsive design
+Add a floating "Order Now" button on mobile that sticks to the bottom
+No placeholder image services — use CSS gradient blocks styled with food-themed colors as image placeholders
+All copy should sound premium, urban, and culturally authentic — not corporate or generic
