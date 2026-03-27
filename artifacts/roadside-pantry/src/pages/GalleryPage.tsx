@@ -22,10 +22,10 @@ export default function GalleryPage() {
 
       {/* PAGE HERO */}
       <section className="py-24 md:py-32 bg-card text-center relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <img src={`${BASE}food-1.png`} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
         </div>
-        <div className="absolute inset-0 bg-card/85 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-card/95 via-card/90 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary uppercase tracking-widest text-sm font-semibold mb-4">
             No Filters Needed

@@ -34,10 +34,10 @@ export default function AboutPage() {
 
       {/* PAGE HERO */}
       <section className="relative py-28 md:py-40 bg-card overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src={`${BASE}toast-banner.jpg`} alt="" className="w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-card/80 via-card/90 to-card z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-card/95 via-card/90 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary uppercase tracking-widest text-sm font-semibold mb-4">
             Our Story

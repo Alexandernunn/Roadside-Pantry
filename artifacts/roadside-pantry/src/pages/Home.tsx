@@ -31,6 +31,9 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <img src={`${BASE}toast-banner.jpg`} alt="" className="w-full h-full object-cover opacity-20" />
         </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+          <img src={`${BASE}logo-full.png`} alt="" className="w-80 h-80 md:w-96 md:h-96 rounded-full object-cover opacity-10" />
+        </div>
         <div className="absolute inset-0 bg-background/85 z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(91,45,142,0.18),transparent_50%)] z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,197,24,0.06),transparent_40%)] z-0" />
