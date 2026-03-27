@@ -1,4 +1,4 @@
-import { Instagram, Facebook, MapPin, Clock, Phone } from "lucide-react";
+import { Instagram, MapPin, Clock, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -61,20 +61,6 @@ export function Footer() {
                 className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 transition-all duration-300"
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 transition-all duration-300"
-              >
-                <Facebook size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 transition-all duration-300 font-bold"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-                </svg>
               </a>
             </div>
           </div>
