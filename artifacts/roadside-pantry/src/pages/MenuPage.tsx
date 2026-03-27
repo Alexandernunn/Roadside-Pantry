@@ -114,7 +114,12 @@ export default function MenuPage() {
                   transition={{ delay: i * 0.12 }}
                   className={`group rounded-3xl overflow-hidden border border-border hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(245,197,24,0.12)] transition-all duration-300 flex flex-col ${ci % 2 === 0 ? "bg-card" : "bg-background"}`}
                 >
-                  <div className={`h-44 w-full bg-gradient-to-br ${item.gradient} relative overflow-hidden`}>
+                  <div className="h-44 w-full relative overflow-hidden bg-card">
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                      <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
+                    )}
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                     <div className="absolute top-4 left-4 bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                       {item.badge}
