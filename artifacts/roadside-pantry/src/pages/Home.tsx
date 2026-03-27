@@ -40,9 +40,9 @@ export default function Home() {
           >
             <div className="absolute inset-0 rounded-full glow-secondary animate-pulse" />
             <img
-              src={`${BASE}logo.png`}
+              src={`${BASE}logo-full.png`}
               alt="Roadside Pantry Logo"
-              className="w-40 h-40 md:w-56 md:h-56 object-contain relative z-10"
+              className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover relative z-10 border-4 border-border/30"
             />
           </motion.div>
 
