@@ -46,7 +46,7 @@ export function Navbar() {
             <img
               src={`${import.meta.env.BASE_URL}logo-full.png`}
               alt="Roadside Pantry"
-              className="w-9 h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 rounded-full object-cover transition-transform group-hover:scale-105"
+              className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full object-cover transition-transform group-hover:scale-105"
             />
           </Link>
 
