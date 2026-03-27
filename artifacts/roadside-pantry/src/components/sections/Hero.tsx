@@ -5,8 +5,15 @@ const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dic
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background with deep dark overlay and subtle purple gradient mesh */}
-      <div className="absolute inset-0 bg-background z-0" />
+      {/* Background with Toast banner image and dark overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={`${import.meta.env.BASE_URL}toast-banner.jpg`}
+          alt=""
+          className="w-full h-full object-cover opacity-20"
+        />
+      </div>
+      <div className="absolute inset-0 bg-background/85 z-0" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(91,45,142,0.15),transparent_50%)] z-0" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,197,24,0.05),transparent_40%)] z-0" />
 

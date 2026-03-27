@@ -5,7 +5,14 @@ const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dic
 export function Cta() {
   return (
     <section className="relative py-32 overflow-hidden bg-secondary">
-      {/* Abstract background elements */}
+      {/* Food image background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={`${import.meta.env.BASE_URL}food-3.png`}
+          alt=""
+          className="w-full h-full object-cover opacity-15"
+        />
+      </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.2),rgba(0,0,0,0.6))]" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
       

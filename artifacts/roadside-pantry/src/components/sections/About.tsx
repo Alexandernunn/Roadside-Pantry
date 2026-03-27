@@ -38,34 +38,43 @@ export function About() {
             className="relative"
           >
             <div className="absolute inset-0 bg-secondary blur-3xl opacity-20 rounded-full" />
-            <div className="relative bg-background border border-border p-10 md:p-14 rounded-[2rem] shadow-2xl overflow-hidden group">
-              {/* Decorative accent lines */}
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-primary" />
+            <div className="relative bg-background border border-border rounded-[2rem] shadow-2xl overflow-hidden group">
+              {/* Food image */}
+              <div className="h-56 overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}food-1.png`}
+                  alt="BBQ wings with collard greens and mac & cheese"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
               
-              <div className="flex flex-col items-center text-center space-y-6">
-                <div className="flex gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.4 + i * 0.1 }}
-                    >
-                      <Star className="w-10 h-10 text-primary fill-primary drop-shadow-[0_0_8px_rgba(245,197,24,0.5)]" />
-                    </motion.div>
-                  ))}
+              <div className="p-10 md:p-12">
+                {/* Decorative accent lines */}
+                <div className="flex flex-col items-center text-center space-y-6">
+                  <div className="flex gap-2">
+                    {[...Array(5)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 + i * 0.1 }}
+                      >
+                        <Star className="w-10 h-10 text-primary fill-primary drop-shadow-[0_0_8px_rgba(245,197,24,0.5)]" />
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  <h3 className="text-5xl md:text-6xl font-display font-bold text-foreground">
+                    500+
+                  </h3>
+                  <p className="text-xl md:text-2xl font-medium text-primary uppercase tracking-widest">
+                    Five-Star Reviews
+                  </p>
+                  <p className="text-muted-foreground">
+                    Voted one of Nashville's best hidden gems for authentic, scratch-made soul food.
+                  </p>
                 </div>
-                
-                <h3 className="text-5xl md:text-6xl font-display font-bold text-foreground">
-                  500+
-                </h3>
-                <p className="text-xl md:text-2xl font-medium text-primary uppercase tracking-widest">
-                  Five-Star Reviews
-                </p>
-                <p className="text-muted-foreground">
-                  Voted one of Nashville's best hidden gems for authentic, scratch-made soul food.
-                </p>
               </div>
             </div>
           </motion.div>
