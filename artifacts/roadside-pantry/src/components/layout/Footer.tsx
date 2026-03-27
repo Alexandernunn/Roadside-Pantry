@@ -18,14 +18,11 @@ export function Footer() {
           
           {/* Brand & Slogan */}
           <div className="space-y-8">
-            <div className="flex items-center gap-4 md:gap-6">
-              <img
-                src={`${import.meta.env.BASE_URL}logo.png`}
-                alt="Roadside Pantry"
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full"
-              />
-              <span className="font-display font-bold text-3xl md:text-4xl">Roadside Pantry</span>
-            </div>
+            <img
+              src={`${import.meta.env.BASE_URL}logo.png`}
+              alt="Roadside Pantry"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full"
+            />
             <p className="text-muted-foreground text-xl md:text-2xl font-display italic">
               "What's In Your Pantry?"
             </p>
