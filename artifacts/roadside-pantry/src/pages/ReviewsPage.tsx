@@ -62,10 +62,10 @@ export default function ReviewsPage() {
 
       {/* PAGE HERO */}
       <section className="relative py-24 md:py-36 bg-card overflow-hidden text-center">
-        <div className="absolute inset-0 z-0 opacity-20">
+        <div className="absolute inset-0 z-0 opacity-35">
           <img src={`${BASE}food-pattern.png`} alt="" className="w-full h-full object-cover object-center" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-card/95 via-card/90 to-card z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-card/85 via-card/80 to-card z-0" />
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary uppercase tracking-widest text-sm font-semibold mb-4">
             500+ Five-Star Reviews
