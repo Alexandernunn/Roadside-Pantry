@@ -1,13 +1,6 @@
-# NOTE: The root-level netlify.toml at the repository root is the authoritative
-# Netlify configuration. That file sets the correct build command and publish
-# directory for use from the monorepo root (where Netlify runs the build).
-#
-# This file is kept for reference only and is NOT used by Netlify when the
-# root-level netlify.toml is present.
-
 [build]
-  publish = "dist/public"
-  command = "cd ../.. && pnpm install && pnpm --filter @workspace/roadside-pantry run build"
+  command = "pnpm install && pnpm --filter @workspace/roadside-pantry run build"
+  publish = "artifacts/roadside-pantry/dist/public"
 
 [[redirects]]
   from = "/*"
