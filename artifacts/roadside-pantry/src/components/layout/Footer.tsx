@@ -17,11 +17,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-20 lg:gap-24 mb-20 md:mb-24">
           
           {/* Brand & Slogan */}
-          <div className="space-y-8">
+          <div className="space-y-8 flex flex-col items-center">
             <img
               src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Roadside Pantry"
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full"
+              className="w-48 h-48 md:w-56 md:h-56 rounded-full"
             />
             <p className="text-muted-foreground text-xl md:text-2xl font-display italic">
               "What's In Your Pantry?"
