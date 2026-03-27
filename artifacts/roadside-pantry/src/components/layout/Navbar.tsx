@@ -51,7 +51,7 @@ export function Navbar() {
           </Link>
 
           {/* Nav links — always visible */}
-          <nav className="flex items-center gap-0 sm:gap-1.5 md:gap-3 lg:gap-4 justify-center sm:justify-start flex-1 sm:flex-none">
+          <nav className="flex items-center gap-0 sm:gap-1.5 md:gap-3 lg:gap-4 justify-between sm:justify-start flex-1 sm:flex-none">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -70,7 +70,7 @@ export function Navbar() {
             {/* Cart button */}
             <button
               onClick={openCart}
-              className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0 ml-auto sm:ml-0"
+              className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 shrink-0"
               aria-label="Open cart"
             >
               <ShoppingBag size={20} className="sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5" />
