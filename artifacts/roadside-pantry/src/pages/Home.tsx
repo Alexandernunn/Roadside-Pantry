@@ -1,16 +1,20 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Flame, Heart, Clock, Star } from "lucide-react";
+import { menuCategories } from "@/data/menuData";
+import type { MenuItem } from "@/data/menuData";
 
 const BASE = import.meta.env.BASE_URL;
 const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dickerson-pike";
 
-const featuredItems = [
-  { name: "Smothered Pork Chops", price: "$14.99", gradient: "from-amber-700 to-orange-950", tag: "Fan Favorite" },
-  { name: "Oxtails", price: "$18.99", gradient: "from-stone-700 to-stone-950", tag: "Most Ordered" },
-  { name: "Mac & Cheese", price: "$4.99", gradient: "from-yellow-500 to-orange-800", tag: "Classic" },
-  { name: "Fried Catfish", price: "$13.99", gradient: "from-yellow-600 to-amber-900", tag: "Nashville Style" },
-];
+// Get featured items from menu data
+const allItems = menuCategories.flatMap((c) => c.items);
+const featuredItems: MenuItem[] = [
+  allItems.find((i) => i.id === "smothered-pork-chops")!,
+  allItems.find((i) => i.id === "chicken-sandwich")!,
+  allItems.find((i) => i.id === "mac-and-cheese")!,
+  allItems.find((i) => i.id === "fried-catfish")!,
+].filter(Boolean);
 
 const values = [
   { icon: Flame, title: "Made From Scratch", body: "Every single dish is prepared fresh daily. No bags, no shortcuts, no freezer burns. Just real cooking done the right way." },
@@ -153,19 +157,27 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {featuredItems.map((item, i) => (
               <motion.div
-                key={item.name}
+                key={item.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="group bg-card rounded-3xl overflow-hidden border border-border hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(245,197,24,0.15)] transition-all duration-300 flex flex-col"
               >
-                <div className={`h-48 w-full bg-gradient-to-br ${item.gradient} relative overflow-hidden`}>
+                <div className={`h-48 w-full relative overflow-hidden ${item.image ? "" : `bg-gradient-to-br ${item.gradient}`}`}>
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                   <div className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                    {item.tag}
+                    {item.badge}
                   </div>
                   <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-primary font-bold text-sm">
-                    {item.price}
+                    ${item.price.toFixed(2)}
                   </div>
                 </div>
                 <div className="p-5">
