@@ -170,16 +170,6 @@ export default function MenuPage() {
           <div className="flex items-center gap-3 py-3">
             {/* Category tabs — horizontally scrollable */}
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-1 min-w-0">
-              <button
-                onClick={() => setActiveCategory(null)}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                  activeCategory === null
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
-                }`}
-              >
-                All
-              </button>
               {categoryNames.map((name) => (
                 <button
                   key={name}
@@ -220,7 +210,7 @@ export default function MenuPage() {
       </div>
 
       {/* MENU CONTENT */}
-      <div className="min-h-screen">
+      <div className="min-h-screen pt-8">
         <AnimatePresence mode="wait">
           {filteredCategories.length === 0 ? (
             <motion.div
