@@ -168,24 +168,7 @@ export default function MenuPage() {
       <div className="sticky top-[56px] sm:top-[60px] z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex flex-col gap-3 py-3">
-            {/* First row of buttons — first 4 categories */}
-            <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
-              {categoryNames.slice(0, 4).map((name) => (
-                <button
-                  key={name}
-                  onClick={() => setActiveCategory(activeCategory === name ? null : name)}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                    activeCategory === name
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-
-            {/* Search box — center row */}
+            {/* Search box — top row */}
             <div className="relative w-full sm:w-48 md:w-60 mx-auto">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               <input
@@ -204,6 +187,23 @@ export default function MenuPage() {
                   <X size={13} />
                 </button>
               )}
+            </div>
+
+            {/* First row of buttons — first 4 categories */}
+            <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
+              {categoryNames.slice(0, 4).map((name) => (
+                <button
+                  key={name}
+                  onClick={() => setActiveCategory(activeCategory === name ? null : name)}
+                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                    activeCategory === name
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
             </div>
 
             {/* Second row of buttons — last 4 categories */}
