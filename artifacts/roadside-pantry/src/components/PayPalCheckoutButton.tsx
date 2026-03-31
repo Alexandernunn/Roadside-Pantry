@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PayPalButtons, FUNDING, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { AlertCircle, X } from "lucide-react";
+import { AlertCircle, Lock, X } from "lucide-react";
 
 interface CartItem {
   id: string;
@@ -93,6 +93,15 @@ export function PayPalCheckoutButton({ subtotal, tax, items, onSuccess }: PayPal
 
   return (
     <div className="w-full">
+      {/* Divider with label */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex-1 h-px bg-border" />
+        <span className="text-xs text-muted-foreground uppercase tracking-widest font-semibold whitespace-nowrap">
+          Secure Checkout
+        </span>
+        <div className="flex-1 h-px bg-border" />
+      </div>
+
       {isPending && (
         <div className="w-full py-4 rounded-xl bg-card border border-border flex items-center justify-center">
           <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
@@ -101,7 +110,7 @@ export function PayPalCheckoutButton({ subtotal, tax, items, onSuccess }: PayPal
       )}
 
       {!isPending && (
-        <>
+        <div className="space-y-2 min-w-0">
           <PayPalButtons
             fundingSource={FUNDING.PAYPAL}
             style={{ layout: "vertical", shape: "pill", label: "pay" }}
@@ -118,8 +127,14 @@ export function PayPalCheckoutButton({ subtotal, tax, items, onSuccess }: PayPal
             onCancel={handleCancel}
             onError={handleError}
           />
-        </>
+        </div>
       )}
+
+      {/* Trust badge */}
+      <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-muted-foreground">
+        <Lock size={11} className="shrink-0" />
+        <span>Secured by PayPal</span>
+      </div>
 
       {cancelled && (
         <div className="mt-3 flex items-start gap-2 text-sm text-muted-foreground bg-card border border-border rounded-xl p-3">

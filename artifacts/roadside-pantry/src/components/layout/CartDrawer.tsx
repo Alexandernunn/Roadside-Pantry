@@ -77,8 +77,17 @@ export function CartDrawer() {
                       className="overflow-hidden"
                     >
                       <div className="flex items-center gap-4 py-4 border-b border-border/50">
-                        {/* Color swatch */}
-                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} shrink-0`} />
+                        {/* Food image / gradient fallback */}
+                        <div className={`w-14 h-14 rounded-xl shrink-0 overflow-hidden ${item.image ? "" : `bg-gradient-to-br ${item.gradient}`}`}>
+                          {item.image ? (
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              loading="lazy"
+                              className="w-full h-full object-cover"
+                            />
+                          ) : null}
+                        </div>
 
                         {/* Info */}
                         <div className="flex-1 min-w-0">

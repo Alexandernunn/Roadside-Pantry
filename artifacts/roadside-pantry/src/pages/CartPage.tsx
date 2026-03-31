@@ -126,8 +126,16 @@ export default function CartPage() {
                       transition={{ duration: 0.2 }}
                       className="bg-card border border-border rounded-2xl p-5 flex items-center gap-5 hover:border-primary/30 transition-colors"
                     >
-                      {/* Gradient swatch */}
-                      <div className={`w-20 h-20 rounded-xl bg-gradient-to-br ${item.gradient} shrink-0 relative overflow-hidden`}>
+                      {/* Food image / gradient fallback */}
+                      <div className={`w-20 h-20 rounded-xl shrink-0 relative overflow-hidden ${item.image ? "" : `bg-gradient-to-br ${item.gradient}`}`}>
+                        {item.image ? (
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : null}
                         <div className="absolute bottom-1 right-1 bg-background/80 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                           {item.badge}
                         </div>
@@ -212,12 +220,14 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <PayPalCheckoutButton
-                  subtotal={subtotal}
-                  tax={tax}
-                  items={items}
-                  onSuccess={handlePaymentSuccess}
-                />
+                <div className="w-full min-w-0 overflow-hidden">
+                  <PayPalCheckoutButton
+                    subtotal={subtotal}
+                    tax={tax}
+                    items={items}
+                    onSuccess={handlePaymentSuccess}
+                  />
+                </div>
 
                 <p className="text-muted-foreground text-xs text-center mt-3">
                   Pickup at 1107 Dickerson Pike · Nashville, TN
