@@ -165,24 +165,24 @@ export default function MenuPage() {
       </section>
 
       {/* STICKY FILTER BAR */}
-      <div className="sticky top-[56px] sm:top-[60px] z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-md">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-md border-b-2 border-transparent bg-gradient-to-r from-background via-background to-background" style={{ backgroundImage: 'linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(91,45,142,0.08) 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="flex flex-col gap-3 py-3">
+          <div className="flex flex-col gap-3 py-4">
             {/* Search box — top row */}
             <div className="relative w-full sm:w-48 md:w-60 mx-auto">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none" />
               <input
                 ref={searchRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search…"
-                className="w-full bg-card border border-border rounded-full pl-8 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all"
+                className="w-full bg-card/60 border-2 border-primary/30 rounded-full pl-8 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all hover:border-primary/50"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-primary hover:text-primary transition-colors"
                 >
                   <X size={13} />
                 </button>
@@ -195,10 +195,10 @@ export default function MenuPage() {
                 <button
                   key={name}
                   onClick={() => setActiveCategory(activeCategory === name ? null : name)}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-3 sm:px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                     activeCategory === name
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                      ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/40 scale-105"
+                      : "bg-card border-2 border-secondary/40 text-muted-foreground hover:text-foreground hover:border-primary/60 hover:bg-card/90 hover:shadow-md hover:shadow-secondary/20"
                   }`}
                 >
                   {name}
@@ -212,10 +212,10 @@ export default function MenuPage() {
                 <button
                   key={name}
                   onClick={() => setActiveCategory(activeCategory === name ? null : name)}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  className={`px-3 sm:px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                     activeCategory === name
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                      ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/40 scale-105"
+                      : "bg-card border-2 border-secondary/40 text-muted-foreground hover:text-foreground hover:border-primary/60 hover:bg-card/90 hover:shadow-md hover:shadow-secondary/20"
                   }`}
                 >
                   {name}
@@ -226,8 +226,11 @@ export default function MenuPage() {
         </div>
       </div>
 
+      {/* Top padding to account for fixed filter bar */}
+      <div className="h-[220px] md:h-[180px]" />
+
       {/* MENU CONTENT */}
-      <div className="min-h-screen pt-8">
+      <div className="min-h-screen">
         <AnimatePresence mode="wait">
           {filteredCategories.length === 0 ? (
             <motion.div
