@@ -167,33 +167,31 @@ export default function MenuPage() {
       {/* STICKY FILTER BAR */}
       <div className="sticky top-[56px] sm:top-[60px] z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="flex items-center gap-3 py-3">
-            {/* Category tabs — horizontally scrollable */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-1 min-w-0">
-              {categoryNames.map((name) => (
-                <button
-                  key={name}
-                  onClick={() => setActiveCategory(activeCategory === name ? null : name)}
-                  className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                    activeCategory === name
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 py-3">
+            {/* Category tabs — all visible, wrapping on smaller screens */}
+            {categoryNames.map((name) => (
+              <button
+                key={name}
+                onClick={() => setActiveCategory(activeCategory === name ? null : name)}
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  activeCategory === name
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                }`}
+              >
+                {name}
+              </button>
+            ))}
 
-            {/* Search box */}
-            <div className="relative shrink-0 w-36 sm:w-48 md:w-60">
+            {/* Search box — pushes to right when space available */}
+            <div className="relative ml-auto w-32 sm:w-40 md:w-48">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               <input
                 ref={searchRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search menu…"
+                placeholder="Search…"
                 className="w-full bg-card border border-border rounded-full pl-8 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all"
               />
               {searchQuery && (
