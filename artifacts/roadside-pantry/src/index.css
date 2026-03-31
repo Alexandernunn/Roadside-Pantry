@@ -68,4 +68,11 @@ html {
   .glow-secondary {
     box-shadow: 0 0 30px rgba(91, 45, 142, 0.4);
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

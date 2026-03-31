@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Check } from "lucide-react";
+import { Plus, Check, Search, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { menuCategories } from "@/data/menuData";
 import type { MenuItem } from "@/data/menuData";
 
 const BASE = import.meta.env.BASE_URL;
+
+const CATEGORY_DISPLAY: Record<string, string> = {
+  "Burgers": "Built to Satisfy",
+  "Sandwiches": "Stack It Up",
+  "Chicken": "The Bird Done Right",
+  "Tortillas": "Wrapped & Ready",
+  "Sides": "The Sides That Steal the Show",
+  "Beverages": "Stay Refreshed",
+  "Plates": "The Full Spread",
+  "Extras": "Finish It Off",
+  "Entrees": "The Main Event",
+  "Drinks": "Stay Refreshed",
+};
 
 function AddToCartButton({ item }: { item: MenuItem }) {
   const { addItem, getQuantity, increment, decrement } = useCart();
@@ -63,7 +76,73 @@ function AddToCartButton({ item }: { item: MenuItem }) {
   );
 }
 
+function MenuItemCard({ item, bg }: { item: MenuItem; bg: string }) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
+      className={`group rounded-3xl overflow-hidden border border-border hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(245,197,24,0.12)] transition-all duration-300 flex flex-col ${bg}`}
+    >
+      <div className="h-44 w-full relative overflow-hidden bg-card">
+        {item.image ? (
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
+        )}
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+        <div className="absolute top-4 left-4 bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+          {item.badge}
+        </div>
+        <div className="absolute top-4 right-4 bg-background/85 backdrop-blur-md px-3 py-1.5 rounded-full text-primary font-bold text-sm">
+          ${item.price.toFixed(2)}
+        </div>
+      </div>
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary transition-colors">{item.name}</h3>
+        <p className="text-muted-foreground text-sm leading-relaxed flex-grow">{item.description}</p>
+        <AddToCartButton item={item} />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function MenuPage() {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const categoryNames = menuCategories.map((c) => c.name);
+
+  const filteredCategories = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return menuCategories
+      .filter((cat) => !activeCategory || cat.name === activeCategory)
+      .map((cat) => ({
+        ...cat,
+        items: q
+          ? cat.items.filter(
+              (item) =>
+                item.name.toLowerCase().includes(q) ||
+                item.description.toLowerCase().includes(q) ||
+                item.category.toLowerCase().includes(q)
+            )
+          : cat.items,
+      }))
+      .filter((cat) => cat.items.length > 0);
+  }, [activeCategory, searchQuery]);
+
+  const totalResults = filteredCategories.reduce((n, c) => n + c.items.length, 0);
+  const isFiltering = searchQuery.trim() !== "" || activeCategory !== null;
+
   return (
     <main className="bg-background text-foreground pt-20">
       {/* PAGE HERO */}
@@ -85,69 +164,131 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* MENU CATEGORIES */}
-      {menuCategories.map((cat, ci) => (
-        <section key={cat.name} className={`py-20 md:py-28 ${ci % 2 === 0 ? "bg-background" : "bg-card"}`}>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <div className="mb-14">
-              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex items-center gap-4 mb-3">
-                <div className="w-12 h-[3px] bg-primary" />
-                <span className="text-primary uppercase tracking-widest text-sm font-semibold">{cat.name}</span>
-              </motion.div>
-              <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-display font-bold mb-2">
-                {({
-                  "Burgers": "Built to Satisfy",
-                  "Sandwiches": "Stack It Up",
-                  "Chicken": "The Bird Done Right",
-                  "Tortillas": "Wrapped & Ready",
-                  "Sides": "The Sides That Steal the Show",
-                  "Beverages": "Stay Refreshed",
-                  "Plates": "The Full Spread",
-                  "Extras": "Finish It Off",
-                  "Entrees": "The Main Event",
-                  "Drinks": "Stay Refreshed",
-                } as Record<string, string>)[cat.name] ?? cat.name}
-              </motion.h2>
-              <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-muted-foreground text-lg">
-                {cat.tagline}
-              </motion.p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-              {cat.items.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12 }}
-                  className={`group rounded-3xl overflow-hidden border border-border hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(245,197,24,0.12)] transition-all duration-300 flex flex-col ${ci % 2 === 0 ? "bg-card" : "bg-background"}`}
+      {/* STICKY FILTER BAR */}
+      <div className="sticky top-[56px] sm:top-[60px] z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-md">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="flex items-center gap-3 py-3">
+            {/* Category tabs — horizontally scrollable */}
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+              <button
+                onClick={() => setActiveCategory(null)}
+                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  activeCategory === null
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                }`}
+              >
+                All
+              </button>
+              {categoryNames.map((name) => (
+                <button
+                  key={name}
+                  onClick={() => setActiveCategory(activeCategory === name ? null : name)}
+                  className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                    activeCategory === name
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border"
+                  }`}
                 >
-                  <div className="h-44 w-full relative overflow-hidden bg-card">
-                    {item.image ? (
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
-                    ) : (
-                      <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
-                    )}
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
-                    <div className="absolute top-4 left-4 bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                      {item.badge}
-                    </div>
-                    <div className="absolute top-4 right-4 bg-background/85 backdrop-blur-md px-3 py-1.5 rounded-full text-primary font-bold text-sm">
-                      ${item.price.toFixed(2)}
-                    </div>
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-display font-bold mb-3 group-hover:text-primary transition-colors">{item.name}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed flex-grow">{item.description}</p>
-                    <AddToCartButton item={item} />
-                  </div>
-                </motion.div>
+                  {name}
+                </button>
               ))}
             </div>
+
+            {/* Search box */}
+            <div className="relative shrink-0 w-36 sm:w-48 md:w-60">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <input
+                ref={searchRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search menu…"
+                className="w-full bg-card border border-border rounded-full pl-8 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <X size={13} />
+                </button>
+              )}
+            </div>
           </div>
-        </section>
-      ))}
+        </div>
+      </div>
+
+      {/* MENU CONTENT */}
+      <div className="min-h-screen">
+        <AnimatePresence mode="wait">
+          {filteredCategories.length === 0 ? (
+            <motion.div
+              key="no-results"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex flex-col items-center justify-center py-32 text-center px-4"
+            >
+              <p className="text-4xl mb-4">🍽️</p>
+              <h3 className="font-display font-bold text-2xl mb-2">Nothing matched</h3>
+              <p className="text-muted-foreground mb-6">Try a different search or browse all categories.</p>
+              <button
+                onClick={() => { setSearchQuery(""); setActiveCategory(null); }}
+                className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground font-bold text-sm uppercase tracking-wider hover:scale-105 transition-all"
+              >
+                Show Everything
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              {/* Search result count */}
+              {isFiltering && (
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-8 pb-2">
+                  <p className="text-muted-foreground text-sm">
+                    Showing <span className="text-foreground font-semibold">{totalResults}</span> item{totalResults !== 1 ? "s" : ""}
+                    {activeCategory && <> in <span className="text-primary font-semibold">{activeCategory}</span></>}
+                    {searchQuery && <> matching <span className="text-primary font-semibold">"{searchQuery}"</span></>}
+                  </p>
+                </div>
+              )}
+
+              {filteredCategories.map((cat, ci) => (
+                <section
+                  key={cat.name}
+                  className={`py-16 md:py-24 ${ci % 2 === 0 ? "bg-background" : "bg-card"}`}
+                >
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    {/* Category header — only show when not doing a pure search across all */}
+                    {(!searchQuery || filteredCategories.length > 1) && (
+                      <div className="mb-12">
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="w-12 h-[3px] bg-primary" />
+                          <span className="text-primary uppercase tracking-widest text-sm font-semibold">{cat.name}</span>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-display font-bold mb-2">
+                          {CATEGORY_DISPLAY[cat.name] ?? cat.name}
+                        </h2>
+                        <p className="text-muted-foreground text-lg">{cat.tagline}</p>
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+                      {cat.items.map((item) => (
+                        <MenuItemCard
+                          key={item.id}
+                          item={item}
+                          bg={ci % 2 === 0 ? "bg-card" : "bg-background"}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* ORDER BANNER */}
       <section className="py-20 bg-secondary text-center">
