@@ -95,9 +95,18 @@ export default function MenuPage() {
                 <span className="text-primary uppercase tracking-widest text-sm font-semibold">{cat.name}</span>
               </motion.div>
               <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-display font-bold mb-2">
-                {cat.name === "Entrees" && "The Main Event"}
-                {cat.name === "Sides" && "The Sides That Steal the Show"}
-                {cat.name === "Drinks" && "Stay Refreshed"}
+                {({
+                  "Burgers": "Built to Satisfy",
+                  "Sandwiches": "Stack It Up",
+                  "Chicken": "The Bird Done Right",
+                  "Tortillas": "Wrapped & Ready",
+                  "Sides": "The Sides That Steal the Show",
+                  "Beverages": "Stay Refreshed",
+                  "Plates": "The Full Spread",
+                  "Extras": "Finish It Off",
+                  "Entrees": "The Main Event",
+                  "Drinks": "Stay Refreshed",
+                } as Record<string, string>)[cat.name] ?? cat.name}
               </motion.h2>
               <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-muted-foreground text-lg">
                 {cat.tagline}
