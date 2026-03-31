@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Home from "@/pages/Home";
 import MenuPage from "@/pages/MenuPage";
 import AboutPage from "@/pages/AboutPage";
@@ -15,6 +16,8 @@ import { CartDrawer } from "@/components/layout/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 
 const queryClient = new QueryClient();
+
+const PAYPAL_CLIENT_ID = (import.meta.env.VITE_PAYPAL_CLIENT_ID as string) || "";
 
 function Router() {
   return (
@@ -37,14 +40,22 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <CartProvider>
-          <Router />
-        </CartProvider>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <PayPalScriptProvider
+      options={{
+        clientId: PAYPAL_CLIENT_ID,
+        currency: "USD",
+        intent: "capture",
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <CartProvider>
+            <Router />
+          </CartProvider>
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </PayPalScriptProvider>
   );
 }
 

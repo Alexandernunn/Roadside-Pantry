@@ -1,17 +1,76 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, ExternalLink, CheckCircle } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, CheckCircle } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Link } from "wouter";
-
-const TOAST_TAB_URL = "https://order.toasttab.com/online/roadsidepantry-1107-dickerson-pike";
+import { PayPalCheckoutButton } from "@/components/PayPalCheckoutButton";
 
 export default function CartPage() {
   const { items, increment, decrement, removeItem, subtotal, clearCart, totalItems } = useCart();
-  const [showCheckoutPrompt, setShowCheckoutPrompt] = useState(false);
+  const [confirmedOrderId, setConfirmedOrderId] = useState<string | null>(null);
+  const [confirmedItems, setConfirmedItems] = useState<typeof items>([]);
+  const [confirmedTotal, setConfirmedTotal] = useState(0);
 
   const tax = subtotal * 0.0975;
   const total = subtotal + tax;
+
+  function handlePaymentSuccess(orderId: string) {
+    setConfirmedOrderId(orderId);
+    setConfirmedItems([...items]);
+    setConfirmedTotal(total);
+    clearCart();
+  }
+
+  if (confirmedOrderId) {
+    return (
+      <main className="bg-background text-foreground pt-20 min-h-screen flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-lg w-full mx-4 bg-card border border-border rounded-3xl p-8 text-center shadow-2xl"
+        >
+          <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-primary" />
+          </div>
+          <h1 className="font-display font-bold text-3xl mb-2">
+            Order <span className="text-primary italic">Confirmed!</span>
+          </h1>
+          <p className="text-muted-foreground mb-1">Thank you for your order.</p>
+          <p className="text-xs text-muted-foreground mb-6">
+            Confirmation #{confirmedOrderId.slice(0, 12).toUpperCase()}
+          </p>
+
+          <div className="bg-background rounded-2xl border border-border p-5 text-left mb-6 space-y-3">
+            {confirmedItems.map((item) => (
+              <div key={item.id} className="flex justify-between text-sm">
+                <span className="text-muted-foreground">
+                  {item.name} <span className="text-foreground font-medium">×{item.quantity}</span>
+                </span>
+                <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="border-t border-border pt-3 flex justify-between font-bold text-base">
+              <span>Total Paid</span>
+              <span className="text-primary">${confirmedTotal.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+            Your order will be ready for pickup at{" "}
+            <span className="text-foreground font-semibold">1107 Dickerson Pike · Nashville, TN</span>.
+          </p>
+
+          <Link
+            href="/menu"
+            className="inline-block px-8 py-3 rounded-full bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:scale-105 glow-primary transition-all"
+          >
+            Back to Menu
+          </Link>
+        </motion.div>
+      </main>
+    );
+  }
 
   return (
     <main className="bg-background text-foreground pt-20 min-h-screen">
@@ -153,13 +212,14 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setShowCheckoutPrompt(true)}
-                  className="w-full py-4 rounded-full bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:scale-[1.02] glow-primary transition-all duration-300 mb-3"
-                >
-                  Proceed to Checkout
-                </button>
-                <p className="text-muted-foreground text-xs text-center">
+                <PayPalCheckoutButton
+                  subtotal={subtotal}
+                  tax={tax}
+                  items={items}
+                  onSuccess={handlePaymentSuccess}
+                />
+
+                <p className="text-muted-foreground text-xs text-center mt-3">
                   Pickup at 1107 Dickerson Pike · Nashville, TN
                 </p>
               </div>
@@ -167,56 +227,6 @@ export default function CartPage() {
           )}
         </div>
       </div>
-
-      {/* Checkout Prompt Modal */}
-      <AnimatePresence>
-        {showCheckoutPrompt && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowCheckoutPrompt(false)}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200]"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed inset-0 z-[201] flex items-center justify-center p-4"
-            >
-              <div className="bg-card border border-border rounded-3xl p-8 max-w-md w-full shadow-2xl text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
-                  <CheckCircle className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-display font-bold text-2xl mb-2">Ready to Order?</h3>
-                <p className="text-muted-foreground mb-2">
-                  You've got <span className="text-foreground font-semibold">{totalItems} item{totalItems !== 1 ? "s" : ""}</span> totaling <span className="text-primary font-bold">${total.toFixed(2)}</span>.
-                </p>
-                <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-                  To complete your order, we'll take you to our secure ordering system on Toast Tab where you can pay and confirm your pickup.
-                </p>
-                <div className="flex flex-col gap-3">
-                  <a
-                    href={TOAST_TAB_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-4 rounded-full bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:scale-[1.02] glow-primary transition-all"
-                  >
-                    Complete Order on Toast Tab <ExternalLink size={15} />
-                  </a>
-                  <button
-                    onClick={() => setShowCheckoutPrompt(false)}
-                    className="w-full py-3 rounded-full border border-border text-muted-foreground hover:text-foreground transition-colors text-sm uppercase tracking-widest font-semibold"
-                  >
-                    Keep Browsing
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </main>
   );
 }
