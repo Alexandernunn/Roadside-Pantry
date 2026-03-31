@@ -164,8 +164,8 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* STICKY FILTER BAR */}
-      <div className="sticky top-[56px] sm:top-[60px] z-40 bg-background/98 backdrop-blur-md border-b-2 border-transparent" style={{ backgroundImage: 'linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(91,45,142,0.08) 100%)' }}>
+      {/* FIXED FILTER BAR */}
+      <div className="fixed top-[56px] sm:top-[60px] left-0 right-0 z-50 bg-background/98 backdrop-blur-md border-b-2 border-transparent" style={{ backgroundImage: 'linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(91,45,142,0.08) 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex flex-col gap-3 py-3">
             {/* Search box — top row */}
@@ -226,8 +226,11 @@ export default function MenuPage() {
         </div>
       </div>
 
+      {/* Spacer for fixed filter bar */}
+      <div className="h-[200px] md:h-[150px]" />
+
       {/* MENU CONTENT */}
-      <div className="min-h-screen pt-4">
+      <div className="min-h-screen">
         <AnimatePresence mode="wait">
           {filteredCategories.length === 0 ? (
             <motion.div
