@@ -27,7 +27,7 @@ export default function Home() {
     <main className="bg-background text-foreground">
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      <section className="relative min-h-[85vh] sm:min-h-screen flex items-center justify-center pt-14 sm:pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src={`${BASE}toast-banner.jpg`} alt="" className="w-full h-full object-cover opacity-20" fetchPriority="high" />
         </div>
@@ -38,18 +38,18 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(91,45,142,0.18),transparent_50%)] z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,197,24,0.06),transparent_40%)] z-0" />
 
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex flex-col items-center text-center">
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex flex-col items-center text-center py-6 sm:py-0">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8 relative"
+            className="mb-5 sm:mb-8 relative"
           >
             <div className="absolute inset-0 rounded-full glow-secondary animate-pulse" />
             <img
               src={`${BASE}logo-full.webp`}
               alt="Roadside Pantry Logo"
-              className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover relative z-10 border-4 border-border/30"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full object-cover relative z-10 border-4 border-border/30"
             />
           </motion.div>
 
@@ -57,7 +57,7 @@ export default function Home() {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-4 sm:mb-6"
           >
             Nashville's <br />
             <span className="text-primary italic">Soul Food</span> Authority
@@ -67,7 +67,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-xl md:text-2xl text-muted-foreground font-light mb-4 max-w-2xl"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-light mb-3 sm:mb-4 max-w-2xl"
           >
             "What's In Your Pantry?"
           </motion.p>
@@ -76,7 +76,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-base md:text-lg text-muted-foreground/70 mb-12 max-w-xl"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground/70 mb-8 sm:mb-12 max-w-xl"
           >
             Scratch-made Southern soul food on Dickerson Pike. Hot, heavy, and built for the culture.
           </motion.p>
@@ -85,7 +85,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 w-full sm:w-auto"
           >
             <a
               href={TOAST_TAB_URL}
