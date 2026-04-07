@@ -139,6 +139,10 @@ export default function MenuPage() {
             )
           : cat.items,
       }))
+      .map((cat) => ({
+        ...cat,
+        items: cat.items.filter((item) => item.image),
+      }))
       .filter((cat) => cat.items.length > 0);
   }, [activeCategory, searchQuery]);
 
