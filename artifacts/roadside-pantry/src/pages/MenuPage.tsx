@@ -91,12 +91,12 @@ function MenuItemCard({ item, bg }: { item: MenuItem; bg: string }) {
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
             decoding="async"
           />
         ) : (
-          <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
+          <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${item.gradient}`} />
         )}
         <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
         <div className="absolute top-4 left-4 bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
