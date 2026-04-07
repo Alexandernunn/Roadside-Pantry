@@ -77,6 +77,7 @@ function AddToCartButton({ item }: { item: MenuItem }) {
 }
 
 function MenuItemCard({ item, bg }: { item: MenuItem; bg: string }) {
+  const [imgError, setImgError] = useState(false);
   return (
     <motion.div
       layout
@@ -87,13 +88,14 @@ function MenuItemCard({ item, bg }: { item: MenuItem; bg: string }) {
       className={`group rounded-3xl overflow-hidden border border-border hover:border-primary hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(245,197,24,0.12)] transition-all duration-300 flex flex-col ${bg}`}
     >
       <div className="h-44 w-full relative overflow-hidden bg-card">
-        {item.image ? (
+        {item.image && !imgError ? (
           <img
             src={item.image}
             alt={item.name}
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
             decoding="async"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${item.gradient}`} />
